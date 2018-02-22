@@ -1,0 +1,8 @@
+2018-02-07 20:23:05,930 -- [root][ERROR]: Empty value input: menu dish name
+
+2018-02-07 20:26:16,660 -- [root][ERROR]: Empty value input: menu dish category
+2018-02-07 20:29:05,023 -- [root][ERROR]: Negative input number for the menu dish cost : 0
+2018-02-07 20:29:17,976 -- [root][ERROR]: Empty value input: menu dish category
+2018-02-07 20:29:58,697 -- [root][ERROR]: Empty value input: menu dish category
+2018-02-07 20:30:11,402 -- [root][ERROR]: Empty value input: menu dish category
+2018-02-07 20:31:11,381 -- [root][ERROR]: Negative input number for the menu dish cost : 0
