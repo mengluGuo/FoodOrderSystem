@@ -23,3 +23,9 @@ class TableIDNotFoundException(Exception):
         logging.basicConfig(format='%(asctime)s -- [%(name)s][%(levelname)s]: %(message)s', filename='log.log')
         self._log = logging.getLogger(self.__class__.__name__)
         self.message = "The input tableID " + tableID + " doesn't exist."
+
+class InputLineErrorException(Exception):
+    def __init__(self, fileName, line):
+        logging.basicConfig(format='%(asctime)s -- [%(name)s][%(levelname)s]: %(message)s', filename='log.log')
+        self._log = logging.getLogger(self.__class__.__name__)
+        self.message = "Error input line in " + fileName + " file: " + line

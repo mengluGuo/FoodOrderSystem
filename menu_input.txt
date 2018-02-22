@@ -1,0 +1,19 @@
+Soft,1.20,Drinks
+Tea,1.50,Drinks
+Coffee,1.50,Drinks
+MilkShake,1.95,Drinks
+IceBlast,2.95,Drinks
+Soup,1.95,Starter
+Salad,1.20,Starter
+Fruit,1.20,Starter
+Cereal,0.85,Starter
+Chicken,5.95,Main
+Turkey,5.90,Main
+Duck,6.90,Main
+Fish,5.95,Main
+Beef,4.95,Main
+Pork,7.95,Main
+Chocolate,1.90,Dessert
+IceCream,0.80,Dessert
+CheeseCake,4.40,Dessert
+Garlic bread,2.40,Starter

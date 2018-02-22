@@ -6,3 +6,4 @@
 2018-02-07 20:29:58,697 -- [root][ERROR]: Empty value input: menu dish category
 2018-02-07 20:30:11,402 -- [root][ERROR]: Empty value input: menu dish category
 2018-02-07 20:31:11,381 -- [root][ERROR]: Negative input number for the menu dish cost : 0
+2018-02-22 21:10:09,332 -- [root][ERROR]: Negative input number for the order sequence ID : 0
