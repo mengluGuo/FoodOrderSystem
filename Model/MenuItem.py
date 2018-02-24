@@ -18,6 +18,12 @@ class MenuItem(object):
         else:
             self.__category = category
 
+    def __eq__(self, other):
+        return self.__dish == other.__dish
+
+    def __hash__(self):
+        return hash(self.__dish)
+
     @property
     def dish(self):
         return self.__dish

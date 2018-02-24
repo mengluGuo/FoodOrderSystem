@@ -1,11 +1,10 @@
-from CustomExceptions.CustomExceptions import *
 from Model.Model import Model
 from Interfaces.Observer import Observer
 import threading
 import time
 
 
-class OrderWaiterThread(Observer, threading.Thread):
+class KitchenThread(Observer, threading.Thread):
     def __init__(self, model=Model()):
         self.__model = model
         self.__model.registerObserver(self)
@@ -17,21 +16,20 @@ class OrderWaiterThread(Observer, threading.Thread):
 
     # Method to run the order waiter thread
     def run(self):
-        # Ensure once the order waiter thread starts to use an objects's method,
-        # other threads cannot use the same method until the order waiter thread is finished.
+        # Ensure once the kitchen thread starts to use an objects's method,
+        # other threads cannot use the same method until the kitchen thread is finished.
         with self.__lock:
             while self.runnable:
                 if self.__model is not None:
-                    try:
-                        self.__model.setRandomOrder()
-                    except NegativeNumberException as e:
-                        logging.error(e.message)
+                    self.__model.setHatchList(5)
                 else:
                     print('self.__model is null')
                 # control the speed of the order waiter thread
                 time.sleep(self.__speed)
             if not self.runnable:
-                self.__model.resetOrder()
+                while len(self.__model.getKitchenList) > 0:
+                    self.__model.setHatchList(0)
+                    time.sleep(self.__speed)
 
     def update(self):
         self.__speed = self.__speedUnit * self.__model.speed

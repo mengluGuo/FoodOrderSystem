@@ -1,4 +1,4 @@
-Soft,1.20,Drinks
+Soft drink,1.20,Drinks
 Tea,1.50,Drinks
 Coffee,1.50,Drinks
 MilkShake,1.95,Drinks
