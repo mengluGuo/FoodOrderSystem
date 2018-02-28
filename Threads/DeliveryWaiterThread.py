@@ -6,7 +6,7 @@ import threading
 import time
 
 
-class KitchenThread(Observer, threading.Thread):
+class DeliveryWaiterThread(Observer, threading.Thread):
     def __init__(self,listener = ThreadListener(), model=Model()):
         self.__model = model
         self.__model.registerObserver(self)
