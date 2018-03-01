@@ -13,37 +13,39 @@ from Views.TablesLayout import TablesLayout
 from Views.WaitersLayout import WaitersLayout
 
 
-class MainActivityGUI(QWidget, ThreadListener):
+class MainActivityGUI(ThreadListener, QWidget):
     def __init__(self, model=Model()):
         super().__init__()
         self.__model = model
-        self.__kitchenHatchLayout = None
-        self.__tablesLayout = None
-        self.__waitersLayout = None
+
+        self.__kitchenHatchLayout = KitchenAndHatchLayout(self.__model)
+        self.__tablesLayout = TablesLayout(self.__model)
+        self.__waitersLayout = WaitersLayout(self.__model)
+
         self.__switchButton = None
         self.__getBillButton = None
         self.__getReportButton = None
         self.__speedControlSlider = None
         self.__showBillArea = None
         self.__showReportArea = None
-        self.__width = 1000
-        self.__height = 650
+
+        # self.__width = 1000
+        # self.__height = 650
 
         self.__orderWaiterThread = None
-        self.__orderWaiterRunnable = None
         self.__kitchenThread = None
-        self.__kitchenRunnable = None
         self.__deliveryThread = None
-        self.__deliveryRunnable = None
 
         control_layout = self.setupControlLayout()
         display_layout = self.setupDisplayLayout()
 
         grid = QGridLayout()
-        grid.setSpacing(10)
+        grid.setSpacing(1)
 
         grid.addItem(control_layout)
         grid.addItem(display_layout)
+        grid.addWidget(self.__tablesLayout)
+        grid.addWidget(self.__waitersLayout)
 
         self.setLayout(grid)
         self.setWindowTitle('FoodOrderSystem')
@@ -53,11 +55,6 @@ class MainActivityGUI(QWidget, ThreadListener):
     # include the kitchen and hatch panel, the tables panel
 	# the show table bill panel and show report panel
     def setupDisplayLayout(self):
-
-        self.__kitchenHatchLayout = KitchenAndHatchLayout(self.__model, self.width, self.height)
-        self.__tablesLayout = TablesLayout(self.__model)
-        self.__waitersLayout = WaitersLayout(self.__model)
-
         # setup bill display layout
         self.__showBillArea = QTextEdit()
         self.__showBillArea.setDisabled(True)
@@ -84,13 +81,13 @@ class MainActivityGUI(QWidget, ThreadListener):
         display_layout.addItem(report_layout, 1, 2)
         return display_layout
 
-
     def setupControlLayout(self):
         control_layout = QGridLayout()
         control_layout.setSpacing(5)
 
         # setup switch button
         self.__switchButton = QPushButton('Start')
+        self.__switchButton.clicked.connect(self.switchButtonAction)
         control_layout.addWidget(self.__switchButton, 1, 0)
 
         # setup get bill button
@@ -115,8 +112,26 @@ class MainActivityGUI(QWidget, ThreadListener):
         speed_layout.addWidget(speed_lable, 1, 0)
         speed_layout.addWidget(self.__speedControlSlider, 1, 1)
         control_layout.addItem(speed_layout, 1, 3)
-
         return control_layout
+
+    def switchButtonAction(self):
+        print("Click Start")
+        if self.__orderWaiterThread is None:
+            self.__orderWaiterThread = OrderWaiterThread(self.__model)
+        if self.__kitchenThread is None:
+            self.__kitchenThread = KitchenThread(self.__model)
+        if self.__deliveryThread is None:
+            self.__deliveryThread = DeliveryWaiterThread(self.__model)
+        if self.__switchButton.text() is 'Start':
+            self.__orderWaiterThread.start()
+            self.__orderWaiterThread.runnable = True
+            self.__kitchenThread.start()
+            self.__kitchenThread.runnable = True
+            self.__deliveryThread.start()
+            self.__deliveryThread.runnable = True
+            self.__switchButton.setText('Stop')
+        else:
+
 
 
 model = Model
