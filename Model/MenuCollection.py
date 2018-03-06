@@ -15,6 +15,10 @@ class MenuCollection:
     def menuCollection(self, menullection = set()):
          self.__menuCollection = menullection
 
+
+    def getMenuCollection(self):
+        return self.__menuCollection
+
     # Method to add menu in the menu collection
 	# @param menu the object of the menu item
     def addMenuItem(self, menu):
