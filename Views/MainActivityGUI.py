@@ -131,7 +131,10 @@ class MainActivityGUI(ThreadListener, QWidget):
             self.__deliveryThread.runnable = True
             self.__switchButton.setText('Stop')
         else:
-
+            self.__orderWaiterThread.runnable = False
+            self.__kitchenThread.runnable = False
+            self.__deliveryThread.runnable = False
+            self.__switchButton.setText('Start')
 
 
 model = Model
