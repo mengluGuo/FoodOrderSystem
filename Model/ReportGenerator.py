@@ -3,8 +3,8 @@ from Model.OrderCollection import OrderCollection
 from CustomExceptions.CustomExceptions import *
 
 
-class ReportGeneration(object):
-    def __int__(self, order_collection=OrderCollection, menu_collection=MenuCollection):
+class ReportGenerator(object):
+    def __init__(self, order_collection=OrderCollection, menu_collection=MenuCollection):
         self.__orderCollection = order_collection
         self.__menuCollection = menu_collection
         self.__space = '  '

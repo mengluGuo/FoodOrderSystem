@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/CustomExceptions" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Threads" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Views" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Controller" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv1" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6 (FoodOrderSystem)" jdkType="Python SDK" />

@@ -1,24 +1,28 @@
 from CustomExceptions.CustomExceptions import *
-from Interfaces import Observer
-from Interfaces import Subject
+from Interfaces.Observer import Observer
+from Interfaces.Subject import Subject
 from OrderCollection import OrderCollection
 from MenuCollection import MenuCollection
 from MenuItem import MenuItem
 from OrderItem import OrderItem
+from ReportGenerator import ReportGenerator
 import random
+import logging
 
-class Model(object):
+
+class Model(Subject):
     def __init__(self):
         self.__orderCollection = OrderCollection()
         self.__menuCollection = MenuCollection()
         self.__kitchenList = OrderCollection()
+        self.__reportGenerator = ReportGenerator(self.__orderCollection, self.__menuCollection)
         self.__hatchList = list()
         self.__tableOneList = list()
         self.__tableTwoList = list()
         self.__tableThreeList = list()
         self.__tableFourList = list()
         self.__tableFiveList = list()
-        self.__obs = []
+        self.__registeredObservers = []
         self.__speed = 5
         self.__deliveredOrder = None
         self.__order = None
@@ -31,6 +35,10 @@ class Model(object):
     @property
     def menuCollection(self):
         return self.__menuCollection
+
+    @property
+    def reportGenerator(self):
+        return self.__reportGenerator
 
     # This is a method to read data from data file
 	# @param fileName the file name which the system will read data from
@@ -189,20 +197,20 @@ class Model(object):
 
     """ OBSERVER PATTERN
     SUBJECT must be able to register, remove and notify observers
-    self.__obs: a list to hold any observers"""
+    self.__registeredObservers: a list to hold any observers"""
 
     # Method to add an observer object into the observer list
-    def registerObserver(self, observer):
-        if observer not in self.__obs:
-            self.__obs.append(observer)
+    def registerObserver(self, observer=Observer):
+        if observer not in self.__registeredObservers:
+            self.__registeredObservers.append(observer)
 
     # Method to remove an observer object from the observer list
-    def removeObserver(self, observer):
-        self.__obs.remove(observer)
+    def removeObserver(self, observer=Observer):
+        self.__registeredObservers.remove(observer)
 
     # Method to notify related update to registered observers
     def notifyObservers(self):
-        for observer in self.__obs:
+        for observer in self.__registeredObservers:
             observer.update()
 
 # modle = Model()

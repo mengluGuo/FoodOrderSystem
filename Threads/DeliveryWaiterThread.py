@@ -7,7 +7,7 @@ import time
 
 
 class DeliveryWaiterThread(Observer, threading.Thread):
-    def __init__(self,listener = ThreadListener(), model=Model()):
+    def __init__(self, listener=ThreadListener(), model=Model()):
         self.__model = model
         self.__model.registerObserver(self)
         self.update()

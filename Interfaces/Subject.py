@@ -1,14 +1,15 @@
 from abc import ABCMeta, abstractmethod
+from Observer import Observer
 
 # Interface
 class Subject(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerObserver(self, observer): pass
+    def registerObserver(self, observer=Observer): pass
 
     @abstractmethod
-    def removeObserver(self, observer): pass
+    def removeObserver(self, observer=Observer): pass
 
     @abstractmethod
     def notifyObservers(self): pass
