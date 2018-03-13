@@ -6,7 +6,7 @@ class Subject(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerObserver(self, observer=Observer): pass
+    def registerObserver(self, observer): pass
 
     @abstractmethod
     def removeObserver(self, observer=Observer): pass

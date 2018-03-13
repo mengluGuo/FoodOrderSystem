@@ -201,6 +201,9 @@ class Model(Subject):
 
     # Method to add an observer object into the observer list
     def registerObserver(self, observer=Observer):
+        print (type(observer))
+
+        print('Hello 2: ', observer.__class__)
         if observer not in self.__registeredObservers:
             self.__registeredObservers.append(observer)
 

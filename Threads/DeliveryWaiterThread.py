@@ -10,10 +10,10 @@ class DeliveryWaiterThread(Observer, threading.Thread):
     def __init__(self, listener=ThreadListener(), model=Model()):
         self.__model = model
         self.__model.registerObserver(self)
-        self.update()
         self.runnable = False
         self.__speedUnit = 800
         self.__speed = 0
+        self.update()
         self.__lock = threading.Lock()
         self.__listener = listener
 

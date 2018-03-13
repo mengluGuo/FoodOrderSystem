@@ -8,10 +8,10 @@ class KitchenThread(Observer, threading.Thread):
     def __init__(self, model=Model()):
         self.__model = model
         self.__model.registerObserver(self)
-        self.update()
         self.runnable = False
         self.__speedUnit = 1000
         self.__speed = 0
+        self.update()
         self.__lock = threading.Lock()
 
     # Method to run the order waiter thread

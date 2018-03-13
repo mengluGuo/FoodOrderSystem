@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+
 from Model.Model import Model
 from Interfaces.ThreadListener import ThreadListener
 from Threads.DeliveryWaiterThread import DeliveryWaiterThread
@@ -13,11 +14,11 @@ from Views.TablesLayout import TablesLayout
 from Views.WaitersLayout import WaitersLayout
 import logging
 
-
 class MainActivityGUI(ThreadListener, QWidget):
-    def __init__(self, model=Model()):
+    def __init__(self, model, conroller):
         super().__init__()
         self.__model = model
+        self.__conroller = conroller
 
         self.__kitchenHatchLayout = KitchenAndHatchLayout(self.__model)
         self.__tablesLayout = TablesLayout(self.__model)
@@ -102,6 +103,7 @@ class MainActivityGUI(ThreadListener, QWidget):
         self.__speedControlSlider.setTickPosition(QSlider.TicksBothSides)
         self.__speedControlSlider.setTickInterval(10)
         self.__speedControlSlider.setSingleStep(1)
+        self.__speedControlSlider.valueChanged.connect(self.__conroller.valuechange)
         # self.__speedControlSlider.setMinimum(1)
         # self.__speedControlSlider.setMaximum(10)
         # self.__speedControlSlider.setValue(5)
@@ -165,7 +167,10 @@ class MainActivityGUI(ThreadListener, QWidget):
         self.__getBillButton.setDisabled(flag)
         self.__getReportButton.setDisabled(flag)
 
-model = Model
-app = QApplication(sys.argv)
-ex = MainActivityGUI(model)
-sys.exit(app.exec_())
+    def getselfSpeedControlSlider(self):
+        return self.__speedControlSlider
+
+# model = Model()
+# app = QApplication(sys.argv)
+# ex = MainActivityGUI(model)
+# sys.exit(app.exec_())

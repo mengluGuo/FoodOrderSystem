@@ -7,12 +7,14 @@ import time
 
 class OrderWaiterThread(Observer, threading.Thread):
     def __init__(self, model=Model()):
+        print('Hello: ', self.__class__)
         self.__model = model
+
         self.__model.registerObserver(self)
-        self.update()
         self.runnable = False
         self.__speedUnit = 1000
         self.__speed = 0
+        self.update()
         self.__lock = threading.Lock()
 
     # Method to run the order waiter thread
