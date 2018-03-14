@@ -9,7 +9,7 @@ class Subject(object):
     def registerObserver(self, observer): pass
 
     @abstractmethod
-    def removeObserver(self, observer=Observer): pass
+    def removeObserver(self, observer=Observer()): pass
 
     @abstractmethod
     def notifyObservers(self): pass

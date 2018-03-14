@@ -8,13 +8,14 @@ class WaitersLayout(Observer, QWidget):
     def __init__(self, model=Model()):
         super().__init__()
         self.__model = model
+        self.__model.registerObserver(self)
         self.__orderWaiterArea = QLineEdit()
         self.__deliveryWaiterArea = QLineEdit()
         grid = QGridLayout()
         grid.addItem(self.setupOrderWaiterLayout())
         grid.addItem(self.setupDeliveryWaiterLayout())
         self.setLayout(grid)
-        # self.update()
+        self.update()
 
     # method to setup the order waiter layout
     # include a display list text area
@@ -42,7 +43,7 @@ class WaitersLayout(Observer, QWidget):
         current_order = self.__model.order
         current_order_output = ''
         if current_order is not None:
-            current_order_output = 'CURRENT ORDER: %8s %4s %8s %8s' % (current_order.sequenceID,
+            current_order_output = 'CURRENT ORDER: %-8s %-4s %-8s %-8s' % (current_order.sequenceID,
                                                                        current_order.dishName,
                                                                        current_order.quantity,
                                                                        current_order.tableID)
@@ -51,7 +52,7 @@ class WaitersLayout(Observer, QWidget):
         delivered_order = self.__model.deliveredOrder
         delivered_order_output = ''
         if delivered_order is not None:
-            delivered_order_output = 'ORDER TO BE DELIVERED: %8s %4s %8s %8s' % (delivered_order.sequenceID,
+            delivered_order_output = 'ORDER TO BE DELIVERED: %-8s %-4s %-8s %-8s' % (delivered_order.sequenceID,
                                                                                  delivered_order.dishName,
                                                                                  delivered_order.quantity,
                                                                                  delivered_order.tableID)

@@ -6,10 +6,12 @@ import time
 
 class KitchenThread(Observer, threading.Thread):
     def __init__(self, model=Model()):
+        threading.Thread.__init__(self)
         self.__model = model
+
         self.__model.registerObserver(self)
         self.runnable = False
-        self.__speedUnit = 1000
+        self.__speedUnit = 1
         self.__speed = 0
         self.update()
         self.__lock = threading.Lock()
@@ -22,10 +24,9 @@ class KitchenThread(Observer, threading.Thread):
             while self.runnable:
                 if self.__model is not None:
                     self.__model.setHatchList(5)
-                else:
-                    print('self.__model is null')
                 # control the speed of the order waiter thread
                 time.sleep(self.__speed)
+
             if not self.runnable:
                 while len(self.__model.getKitchenList) > 0:
                     self.__model.setHatchList(0)

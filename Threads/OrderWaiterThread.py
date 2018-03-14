@@ -7,12 +7,12 @@ import time
 
 class OrderWaiterThread(Observer, threading.Thread):
     def __init__(self, model=Model()):
-        print('Hello: ', self.__class__)
+        threading.Thread.__init__(self)
         self.__model = model
 
         self.__model.registerObserver(self)
         self.runnable = False
-        self.__speedUnit = 1000
+        self.__speedUnit = 1
         self.__speed = 0
         self.update()
         self.__lock = threading.Lock()
@@ -27,11 +27,12 @@ class OrderWaiterThread(Observer, threading.Thread):
                     try:
                         self.__model.setRandomOrder()
                     except NegativeNumberException as e:
+                        # print('Error:', e.message)
                         logging.error(e.message)
-                else:
-                    print('self.__model is null')
+
                 # control the speed of the order waiter thread
                 time.sleep(self.__speed)
+
             if not self.runnable:
                 self.__model.resetOrder()
 

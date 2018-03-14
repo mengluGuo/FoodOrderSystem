@@ -1,4 +1,5 @@
 import sys
+import threading
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
@@ -18,6 +19,7 @@ class MainActivityGUI(ThreadListener, QWidget):
     def __init__(self, model, conroller):
         super().__init__()
         self.__model = model
+
         self.__conroller = conroller
 
         self.__kitchenHatchLayout = KitchenAndHatchLayout(self.__model)
@@ -103,6 +105,7 @@ class MainActivityGUI(ThreadListener, QWidget):
         self.__speedControlSlider.setTickPosition(QSlider.TicksBothSides)
         self.__speedControlSlider.setTickInterval(10)
         self.__speedControlSlider.setSingleStep(1)
+        self.__speedControlSlider.setValue(5)
         self.__speedControlSlider.valueChanged.connect(self.__conroller.valuechange)
         # self.__speedControlSlider.setMinimum(1)
         # self.__speedControlSlider.setMaximum(10)
@@ -114,20 +117,22 @@ class MainActivityGUI(ThreadListener, QWidget):
         return control_layout
 
     def switchButtonAction(self):
-        print("Click Start")
         if self.__orderWaiterThread is None:
             self.__orderWaiterThread = OrderWaiterThread(self.__model)
+
         if self.__kitchenThread is None:
             self.__kitchenThread = KitchenThread(self.__model)
+
         if self.__deliveryThread is None:
-            self.__deliveryThread = DeliveryWaiterThread(self.__model)
-        if self.__switchButton.text() is 'Start':
-            self.__orderWaiterThread.start()
+            self.__deliveryThread = DeliveryWaiterThread(self, self.__model)
+
+        if self.__switchButton.text() == 'Start':
             self.__orderWaiterThread.runnable = True
-            self.__kitchenThread.start()
+            self.__orderWaiterThread.start()
             self.__kitchenThread.runnable = True
-            self.__deliveryThread.start()
+            self.__kitchenThread.start()
             self.__deliveryThread.runnable = True
+            self.__deliveryThread.start()
             self.__switchButton.setText('Stop')
         else:
             self.__orderWaiterThread.runnable = False
@@ -136,7 +141,6 @@ class MainActivityGUI(ThreadListener, QWidget):
             self.__switchButton.setText('Start')
 
     def getBillButionAction(self):
-        print('get bill button action')
         table_id, ok = QInputDialog.getText(self, 'Table ID input Dialog', 'Please Enter Table ID: ')
         bill = ''
         if ok:
@@ -151,7 +155,6 @@ class MainActivityGUI(ThreadListener, QWidget):
             QMessageBox.about(self, 'Print Bill', 'Table bill have been print into table_bill.tx')
 
     def getReportButtonAction(self):
-        print('get report button action')
         completeReport = ''
         try:
             completeReport += self.__model.reportGenerator.getFinalReport()

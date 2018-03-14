@@ -8,6 +8,7 @@ class TablesLayout(Observer, QWidget):
     def __init__(self, model=Model()):
         super().__init__()
         self.__model = model
+        self.__model.registerObserver(self)
         self.__showTable1Area = QTextEdit()
         self.__showTable2Area = QTextEdit()
         self.__showTable3Area = QTextEdit()
@@ -20,7 +21,7 @@ class TablesLayout(Observer, QWidget):
         grid.addItem(self.setupTable4Layout(), 1, 3)
         grid.addItem(self.setupTable5Layout(), 1, 4)
         self.setLayout(grid)
-        # self.update()
+        self.update()
 
 
     # method to setup the table1 layout
@@ -90,31 +91,31 @@ class TablesLayout(Observer, QWidget):
 
     def update(self):
         table1_list = self.__model.tableOneList
-        table1_output = 'Ordered for Table One: \n%5s %9s %10s %5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
+        table1_output = 'Ordered for Table One: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table1_list:
             table1_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        self.__showTable1Area.setText(table1_output)
+        # self.__showTable1Area.setText(table1_output)
 
         table2_list = self.__model.tableTwoList
-        table2_output = 'Ordered for Table Two: \n%5s %9s %10s %5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
+        table2_output = 'Ordered for Table Two: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table2_list:
             table2_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        self.__showTable2Area.setText(table2_output)
+        # self.__showTable2Area.setText(table2_output)
 
         table3_list = self.__model.tableThreeList
-        table3_output = 'Ordered for Table Three: \n%5s %9s %10s %5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
+        table3_output = 'Ordered for Table Three: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table3_list:
             table3_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        self.__showTable3Area.setText(table3_output)
+        # self.__showTable3Area.setText(table3_output)
 
         table4_list = self.__model.tableFourList
-        table4_output = 'Ordered for Table Fout: \n%5s %9s %10s %5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
+        table4_output = 'Ordered for Table Fout: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table4_list:
-            table4_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        self.__showTable4Area.setText(table4_output)
+            table4_output += '%-5s %-1s %-10s %-5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
+        # self.__showTable4Area.setText(table4_output)
 
         table5_list = self.__model.tableFiveList
-        table5_output = 'Ordered for Table Five: \n%5s %9s %10s %5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
+        table5_output = 'Ordered for Table Five: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table5_list:
-            table5_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        self.__showTable5Area.setText(table5_output)
+            table5_output += '%-5s %-1s %-10s %-5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
+        # self.__showTable5Area.setText(table5_output)
