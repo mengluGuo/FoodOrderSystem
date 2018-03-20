@@ -28,7 +28,7 @@ class KitchenThread(Observer, threading.Thread):
                 time.sleep(self.__speed)
 
             if not self.runnable:
-                while len(self.__model.getKitchenList) > 0:
+                while len(self.__model.getKitchenList()) > 0:
                     self.__model.setHatchList(0)
                     time.sleep(self.__speed)
 

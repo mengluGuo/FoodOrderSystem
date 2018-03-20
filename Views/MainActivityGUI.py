@@ -92,6 +92,8 @@ class MainActivityGUI(ThreadListener, QWidget):
         control_layout.addWidget(self.__switchButton, 1, 0)
 
         # setup get bill button
+        self.__getBillButton.setEnabled(False)
+        self.__getReportButton.setEnabled(False)
         self.__getBillButton.clicked.connect(self.getBillButionAction)
         control_layout.addWidget(self.__getBillButton, 1, 1)
 
@@ -134,11 +136,15 @@ class MainActivityGUI(ThreadListener, QWidget):
             self.__deliveryThread.runnable = True
             self.__deliveryThread.start()
             self.__switchButton.setText('Stop')
+            self.__getBillButton.setEnabled(False)
+            self.__getReportButton.setEnabled(False)
         else:
             self.__orderWaiterThread.runnable = False
             self.__kitchenThread.runnable = False
             self.__deliveryThread.runnable = False
             self.__switchButton.setText('Start')
+            self.__getBillButton.setEnabled(True)
+            self.__getReportButton.setEnabled(True)
 
     def getBillButionAction(self):
         table_id, ok = QInputDialog.getText(self, 'Table ID input Dialog', 'Please Enter Table ID: ')

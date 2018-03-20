@@ -30,7 +30,7 @@ class DeliveryWaiterThread(Observer, threading.Thread):
                 time.sleep(self.__speed)
 
             if not self.runnable:
-                while len(self.__model.getKitchenList) > 0 or len(self.__model.hatchList) > 0:
+                while len(self.__model.getKitchenList()) > 0 or len(self.__model.hatchList) > 0:
                     self.__model.setDeliveredOrder(0)
                     time.sleep(self.__speed)
                 self.__listener.changeButtonStatus(True)

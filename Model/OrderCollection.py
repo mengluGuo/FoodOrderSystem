@@ -20,20 +20,20 @@ class OrderCollection:
         self.__orderList.append(order)
 
     def getOrderDictionary(self):
-        orderDict = dict()
+        orderDict = {}
         for order in self.__orderList:
             tableID = order.tableID
             if tableID in orderDict.keys():
                 dishDict = orderDict[tableID]
                 dishDict[order.dishName] = order.quantity
             else:
-                dishDict = dict()
+                dishDict = {}
                 dishDict[order.dishName] = order.quantity
                 orderDict[tableID] = dishDict
         return orderDict
 
     def getFrequencyDictionary(self):
-        frequencyDict = dict()
+        frequencyDict = {}
         for order in self.__orderList:
             dishName = order.dishName
             dishQuantity = order.quantity

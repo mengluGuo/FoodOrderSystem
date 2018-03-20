@@ -1,4 +1,5 @@
 import sys
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from Model.Model import Model
 from Interfaces.Observer import Observer
@@ -21,6 +22,14 @@ class TablesLayout(Observer, QWidget):
         grid.addItem(self.setupTable4Layout(), 1, 3)
         grid.addItem(self.setupTable5Layout(), 1, 4)
         self.setLayout(grid)
+
+        self.__table1_text = ''
+        self.__table2_text = ''
+        self.__table3_text = ''
+        self.__table4_text = ''
+        self.__table5_text = ''
+        self.__monitor = Monitor()
+        self.__monitor.updateText.connect(self.setText)
         self.update()
 
 
@@ -94,28 +103,43 @@ class TablesLayout(Observer, QWidget):
         table1_output = 'Ordered for Table One: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table1_list:
             table1_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        # self.__showTable1Area.setText(table1_output)
+        self.__table1_text = table1_output
 
         table2_list = self.__model.tableTwoList
         table2_output = 'Ordered for Table Two: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table2_list:
             table2_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        # self.__showTable2Area.setText(table2_output)
+        self.__table2_text = table2_output
 
         table3_list = self.__model.tableThreeList
         table3_output = 'Ordered for Table Three: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table3_list:
             table3_output += '%5s %1s %10s %5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        # self.__showTable3Area.setText(table3_output)
+        self.__table3_text = table3_output
 
         table4_list = self.__model.tableFourList
         table4_output = 'Ordered for Table Fout: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table4_list:
             table4_output += '%-5s %-1s %-10s %-5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        # self.__showTable4Area.setText(table4_output)
+        self.__table4_text = table4_output
 
         table5_list = self.__model.tableFiveList
         table5_output = 'Ordered for Table Five: \n%-5s %-9s %-10s %-5s\n' % ('ID', 'Dish', 'Quantity', 'Table')
         for order in table5_list:
             table5_output += '%-5s %-1s %-10s %-5s\n' % (order.sequenceID, order.dishName, order.quantity, order.tableID)
-        # self.__showTable5Area.setText(table5_output)
+        self.__table5_text = table5_output
+
+        self.__monitor.update_list()
+
+    def setText(self):
+        self.__showTable1Area.setText(self.__table1_text)
+        self.__showTable2Area.setText(self.__table2_text)
+        self.__showTable3Area.setText(self.__table3_text)
+        self.__showTable4Area.setText(self.__table4_text)
+        self.__showTable5Area.setText(self.__table5_text)
+
+class Monitor(QtCore.QObject):
+    updateText = QtCore.pyqtSignal(str)
+
+    def update_list(self):
+        self.updateText.emit('update list')

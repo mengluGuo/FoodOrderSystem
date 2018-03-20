@@ -14,7 +14,7 @@ class ReportGenerator(object):
     def getFrequencyReport(self):
         output = '\n\nFREQUENCY REPORT\n================\n'
         frequency_dictionary = self.__orderCollection.getFrequencyDictionary()
-        for key, value in frequency_dictionary:
+        for key, value in frequency_dictionary.iteritems():
             if key is not None:
                 dish_name = key
                 quantity = value
@@ -88,7 +88,7 @@ class ReportGenerator(object):
     def getTablesSummary(self):
         output = 'TABLE SUMMARY\n============='
         order_dictionary = self.__orderCollection.getOrderDictionary()
-        for key, value in order_dictionary:
+        for key, value in order_dictionary.iteritems():
             if key is not None:
                 output += self.getBillByTableID(key)
         return output
@@ -111,7 +111,7 @@ class ReportGenerator(object):
             output = '\nTABLE' + tableID + '\n'
             order_dictionary = self.__orderCollection.getOrderDictionary()
             dish_dictionary = order_dictionary[tableID]
-            for key, value in dish_dictionary:
+            for key, value in dish_dictionary.iteritems():
                 if key is not None:
                     dish_name = key
                     quantity = value
@@ -135,7 +135,7 @@ class ReportGenerator(object):
         order_dictionary = self.__orderCollection.getOrderDictionary()
         menu_dictionary = self.__menuCollection.getMenuCollection()
         if order_dictionary[table_id] is not None:
-            for key, value in order_dictionary:
+            for key, value in order_dictionary.iteritems():
                 if key is not None:
                     dish_name = key
                     quantity = value
