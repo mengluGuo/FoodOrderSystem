@@ -12,7 +12,7 @@ class DeliveryWaiterThread(Observer, threading.Thread):
         self.__model = model
         self.__model.registerObserver(self)
         self.runnable = False
-        self.__speedUnit = 1
+        self.__speedUnit = 0.5
         self.__speed = 0
         self.update()
         self.__lock = threading.Lock()

@@ -33,8 +33,8 @@ class MainActivityGUI(ThreadListener, QWidget):
         self.__showBillArea = QTextEdit()
         self.__showReportArea = QTextEdit()
 
-        # self.__width = 1000
-        # self.__height = 650
+        self.__width = 1450
+        self.__height = 800
 
         self.__orderWaiterThread = None
         self.__kitchenThread = None
@@ -53,6 +53,7 @@ class MainActivityGUI(ThreadListener, QWidget):
 
         self.setLayout(grid)
         self.setWindowTitle('FoodOrderSystem')
+        self.resize(self.__width, self.__height)
         self.show()
 
     # method to setup the display panel
@@ -105,13 +106,13 @@ class MainActivityGUI(ThreadListener, QWidget):
         speed_lable = QLabel(' Speed Control: ')
         self.__speedControlSlider.setFocusPolicy(Qt.StrongFocus)
         self.__speedControlSlider.setTickPosition(QSlider.TicksBothSides)
-        self.__speedControlSlider.setTickInterval(10)
-        self.__speedControlSlider.setSingleStep(1)
-        self.__speedControlSlider.setValue(5)
+        # self.__speedControlSlider.setTickInterval(10)
+        # self.__speedControlSlider.setSingleStep(10)
+        # self.__speedControlSlider.setValue(50)
+        self.__speedControlSlider.setMinimum(1)
+        self.__speedControlSlider.setMaximum(5)
+        self.__speedControlSlider.setValue(2)
         self.__speedControlSlider.valueChanged.connect(self.__conroller.valuechange)
-        # self.__speedControlSlider.setMinimum(1)
-        # self.__speedControlSlider.setMaximum(10)
-        # self.__speedControlSlider.setValue(5)
         speed_layout = QGridLayout()
         speed_layout.addWidget(speed_lable, 1, 0)
         speed_layout.addWidget(self.__speedControlSlider, 1, 1)
@@ -136,15 +137,15 @@ class MainActivityGUI(ThreadListener, QWidget):
             self.__deliveryThread.runnable = True
             self.__deliveryThread.start()
             self.__switchButton.setText('Stop')
-            self.__getBillButton.setEnabled(False)
-            self.__getReportButton.setEnabled(False)
+            # self.__getBillButton.setEnabled(False)
+            # self.__getReportButton.setEnabled(False)
         else:
             self.__orderWaiterThread.runnable = False
             self.__kitchenThread.runnable = False
             self.__deliveryThread.runnable = False
             self.__switchButton.setText('Start')
-            self.__getBillButton.setEnabled(True)
-            self.__getReportButton.setEnabled(True)
+            # self.__getBillButton.setEnabled(True)
+            # self.__getReportButton.setEnabled(True)
 
     def getBillButionAction(self):
         table_id, ok = QInputDialog.getText(self, 'Table ID input Dialog', 'Please Enter Table ID: ')

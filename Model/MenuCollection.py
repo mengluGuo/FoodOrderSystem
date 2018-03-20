@@ -12,7 +12,7 @@ class MenuCollection:
         return self.__menuCollection
 
     @menuCollection.setter
-    def menuCollection(self, menullection = set()):
+    def menuCollection(self, menullection=set()):
          self.__menuCollection = menullection
 
 

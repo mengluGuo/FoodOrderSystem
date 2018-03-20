@@ -43,7 +43,7 @@ class WaitersLayout(Observer, QWidget):
         current_order = self.__model.order
         current_order_output = ''
         if current_order is not None:
-            current_order_output = 'CURRENT ORDER: %-8s %-4s %-8s %-8s' % (current_order.sequenceID,
+            current_order_output = 'CURRENT ORDER: %-8s %-8s %-8s %-8s' % (current_order.sequenceID,
                                                                        current_order.dishName,
                                                                        current_order.quantity,
                                                                        current_order.tableID)
@@ -52,7 +52,7 @@ class WaitersLayout(Observer, QWidget):
         delivered_order = self.__model.deliveredOrder
         delivered_order_output = ''
         if delivered_order is not None:
-            delivered_order_output = 'ORDER TO BE DELIVERED: %-8s %-4s %-8s %-8s' % (delivered_order.sequenceID,
+            delivered_order_output = 'ORDER TO BE DELIVERED: %-8s %-8s %-8s %-8s' % (delivered_order.sequenceID,
                                                                                  delivered_order.dishName,
                                                                                  delivered_order.quantity,
                                                                                  delivered_order.tableID)

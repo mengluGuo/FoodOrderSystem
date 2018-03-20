@@ -18,7 +18,7 @@ class ReportGenerator(object):
             if key is not None:
                 dish_name = key
                 quantity = value
-                output += '%20s' % dish_name + str(quantity) + '\n'
+                output += '%-20s' % dish_name + str(quantity) + '\n'
         return output
 
     # Method to get the not ordered dishes
@@ -30,7 +30,7 @@ class ReportGenerator(object):
             dish_name = menu.dish
             frequency_dictionary = self.__orderCollection.getFrequencyDictionary()
             # if frequency_dictionary[dish_name] is not None:
-            if dish_name in frequency_dictionary:
+            if dish_name not in frequency_dictionary:
                 output += dish_name + '\n'
         return output
 
@@ -38,7 +38,7 @@ class ReportGenerator(object):
     # all menu item and return these in concatenated string.
     # @return output the string of menu list
     def getMenuList(self):
-        output = '\n MENU\n=====\n\nSTARTER\n' + self.listStarters() \
+        output = '\nMENU\n=====\n\nSTARTER\n' + self.listStarters() \
                  + '\nMAIN\n' + self.listMains() \
                  + '\nDESSERT\n' + self.listDesserts() \
                  + '\nDRINKS\n' + self.listDrinks()
@@ -50,8 +50,8 @@ class ReportGenerator(object):
         output = ''
         menu_collection = self.__menuCollection.getMenuCollection()
         for menu in menu_collection:
-            if 'starter' in menu.category:
-                output += self.__space + '%15s' % menu.dish + '%.2f' % str(menu.cost) + '\n'
+            if 'Starter' in menu.category:
+                output += self.__space + '%-15s' % menu.dish + '%.2f' % menu.cost + '\n'
         return output
 
     # Read details of Mains items from menu input file.
@@ -60,8 +60,8 @@ class ReportGenerator(object):
         output = ''
         menu_collection = self.__menuCollection.getMenuCollection()
         for menu in menu_collection:
-            if 'main' in menu.category:
-                output += self.__space + '%15s' % menu.dish + '%.2f' % str(menu.cost) + '\n'
+            if 'Main' in menu.category:
+                output += self.__space + '%-15s' % menu.dish + '%.2f' % menu.cost + '\n'
         return output
 
     # Read details of Desserts items from menu input file.
@@ -70,8 +70,8 @@ class ReportGenerator(object):
         output = ''
         menu_collection = self.__menuCollection.getMenuCollection()
         for menu in menu_collection:
-            if 'dessert' in menu.category:
-                output += self.__space + '%15s' % menu.dish + '%.2f' % str(menu.cost) + '\n'
+            if 'Dessert' in menu.category:
+                output += self.__space + '%-15s' % menu.dish + '%.2f' % menu.cost + '\n'
         return output
 
     # Read details of Drinks items from menu input file.
@@ -80,8 +80,8 @@ class ReportGenerator(object):
         output = ''
         menu_collection = self.__menuCollection.getMenuCollection()
         for menu in menu_collection:
-            if 'drink' in menu.category:
-                output += self.__space + '%15s' % menu.dish + '%.2f' % str(menu.cost) + '\n'
+            if 'Drinks' in menu.category:
+                output += self.__space + '%-15s' % menu.dish + '%.2f' % menu.cost + '\n'
         return output
 
     # Method to get the summary of all tables
@@ -109,7 +109,7 @@ class ReportGenerator(object):
             sum_price = self.getSumPrice(tableID)
             discount = self.getDiscount(sum_price)
             discounted_price = self.getDiscountedPrice(sum_price, discount)
-            output = '\nTABLE' + str(tableID) + '\n'
+            output = '\nTABLE ' + str(tableID) + ':\n'
             order_dictionary = self.__orderCollection.getOrderDictionary()
             dish_dictionary = order_dictionary[tableID]
             for key, value in dish_dictionary.items():
@@ -120,12 +120,12 @@ class ReportGenerator(object):
                         if menu.dish == dish_name:
                             per_dish_price = menu.cost
                 total_dish_price = per_dish_price * quantity
-                output += '%15s' % dish_name + '%2s' % str(quantity) \
-                            + '%2s' % '*' + '%2s' % str(per_dish_price) \
-                            + ' = ' + str(total_dish_price) + '\n'
-            output += '\n====\n' + '%10s' % 'Total for this table: ' + str(sum_price) + '\n' \
-                        + '%23s' % 'Discount: ' + str(discount) + '\n' \
-                        + '%23s' % 'Total after Discount: ' + str(discounted_price) + '\n'
+                output += '%-15s' % dish_name + '%-2s' % str(quantity) \
+                            + '%-2s' % '*' + '%.2f' % per_dish_price \
+                            + ' = ' + '%.2f' % total_dish_price + '\n'
+            output += '====\n' + '%10s' % 'Total for this table: ' + '%.2f' % sum_price + '\n' \
+                        + '%-23s' % 'Discount: ' + '%.2f' % discount + '\n' \
+                        + '%-23s' % 'Total after Discount: ' + '%.2f' % discounted_price + '\n'
             return output
 
     # Method to get the sum price by table id
@@ -135,8 +135,9 @@ class ReportGenerator(object):
         sum_price = 0
         order_dictionary = self.__orderCollection.getOrderDictionary()
         menu_dictionary = self.__menuCollection.getMenuCollection()
-        if order_dictionary[table_id] is not None:
-            for key, value in order_dictionary.items():
+        if table_id in order_dictionary:
+            orders = order_dictionary[table_id]
+            for key, value in orders.items():
                 if key is not None:
                     dish_name = key
                     quantity = value

@@ -58,7 +58,7 @@ class KitchenAndHatchLayout(Observer, QWidget):
         kitchen_output = 'Waiting for cooking\n%-5s %-11s %-13s %-7s\n' % ('ID', 'DishName', 'Quantity', 'Table')
         if kitchen_list is not None and len(kitchen_list)>0:
             for uncooked_order in kitchen_list:
-                kitchen_output += '%-5s %-15s %-10s %-7s\n' % (uncooked_order.sequenceID,
+                kitchen_output += '%-5s %-20s %-15s %-7s\n' % (uncooked_order.sequenceID,
                                                             uncooked_order.dishName,
                                                             uncooked_order.quantity,
                                                             uncooked_order.tableID)
@@ -67,7 +67,7 @@ class KitchenAndHatchLayout(Observer, QWidget):
         hatch_list = self.__model.hatchList
         hatch_output = 'Waiting for delivery\n %-5s %-11s %-13s %-7s\n' % ('ID', 'DishName', 'Quantity', 'Table')
         for cooked_order in hatch_list:
-            hatch_output += '%-5s %-15s %-10s %-7s\n' % (cooked_order.sequenceID,
+            hatch_output += '%-5s %-20s %-15s %-7s\n' % (cooked_order.sequenceID,
                                                       cooked_order.dishName,
                                                       cooked_order.quantity,
                                                       cooked_order.tableID)
