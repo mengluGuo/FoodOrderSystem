@@ -33,7 +33,7 @@ class DeliveryWaiterThread(Observer, threading.Thread):
                 while len(self.__model.getKitchenList()) > 0 or len(self.__model.hatchList) > 0:
                     self.__model.setDeliveredOrder(0)
                     time.sleep(self.__speed)
-                self.__listener.changeButtonStatus(True)
+                self.__listener.changeButtonStatus(False)
                 self.__model.resetDeliveryOrder()
 
     def update(self):

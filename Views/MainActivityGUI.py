@@ -170,7 +170,7 @@ class MainActivityGUI(ThreadListener, QWidget):
             logging.error(e.message)
         self.__showReportArea.setText(completeReport)
         self.__model.writeIntoFile('table_Report.txt', completeReport)
-        QMessageBox.about(self, 'Complete report have been print into table_report.txt')
+        QMessageBox.about(self, 'Print Report', 'Complete report have been print into table_report.txt')
 
     def changeButtonStatus(self, flag):
         self.__getBillButton.setDisabled(flag)
